@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Web Based Tax & Leasing Calculator</title>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+  <header class="app-header">
+    <h1>Web Based Tax & Leasing Calculator</h1>
+    <p class="subtitle">Built with HTML, CSS & JavaScript</p>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Calculator Sections">
+    <button class="tab active" role="tab" aria-selected="true" data-target="#withholding">Withholding Tax</button>
+    <button class="tab" role="tab" aria-selected="false" data-target="#payable">Payable Tax (Monthly)</button>
+    <button class="tab" role="tab" aria-selected="false" data-target="#income">Income Tax (Annual)</button>
+    <button class="tab" role="tab" aria-selected="false" data-target="#sscl">SSCL Tax</button>
+    <button class="tab" role="tab" aria-selected="false" data-target="#leasing">Leasing</button>
+    <button id="resetAll" class="tab reset-tab" title="Clear all forms" aria-label="Reset all forms">Reset / Clear</button>
+  </nav>
+
+  <main>
+    <!-- WITHHOLDING TAX -->
+    <section id="withholding" class="panel active">
+      <h2>Withholding Tax</h2>
+      <form id="withholdingForm" class="form card" novalidate>
+        <div class="form-row">
+          <label for="whtType">Tax Type</label>
+          <select id="whtType" required>
+            <option value="rent">Rent (10% if &gt; Rs. 100,000)</option>
+            <option value="interest">Bank Interest (5%)</option>
+            <option value="dividend">Dividend (14% if &gt; Rs. 100,000)</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="whtAmount">Amount (Rs.)</label>
+          <input id="whtAmount" type="number" min="0" step="0.01" placeholder="e.g., 150000" required/>
+          <small class="hint">Only positive numbers are allowed.</small>
+          <div class="error" id="whtAmountError"></div>
+        </div>
+        <div class="actions">
+          <button type="submit" class="btn primary">Calculate</button>
+          <button type="button" class="btn" data-action="clear">Clear</button>
+        </div>
+      </form>
+      <div id="whtResult" class="result card" aria-live="polite"></div>
+    </section>
+
+    <!-- PAYABLE TAX (MONTHLY) -->
+    <section id="payable" class="panel">
+      <h2>Payable Tax (Monthly Salary)</h2>
+      <form id="payableForm" class="form card" novalidate>
+        <div class="form-row">
+          <label for="monthlySalary">Monthly Gross Salary (Rs.)</label>
+          <input id="monthlySalary" type="number" min="0" step="0.01" placeholder="e.g., 250000" required/>
+          <div class="error" id="monthlySalaryError"></div>
+        </div>
+        <div class="actions">
+          <button type="submit" class="btn primary">Calculate</button>
+          <button type="button" class="btn" data-action="clear">Clear</button>
+        </div>
+      </form>
+      <div id="payableResult" class="result card" aria-live="polite"></div>
+    </section>
+
+    <!-- INCOME TAX (ANNUAL) -->
+    <section id="income" class="panel">
+      <h2>Income Tax (Annual)</h2>
+      <form id="incomeForm" class="form card" novalidate>
+        <div class="form-row">
+          <label for="annualIncome">Annual Gross Income (Rs.)</label>
+          <input id="annualIncome" type="number" min="0" step="0.01" placeholder="e.g., 3000000" required/>
+          <div class="error" id="annualIncomeError"></div>
+        </div>
+        <div class="actions">
+          <button type="submit" class="btn primary">Calculate</button>
+          <button type="button" class="btn" data-action="clear">Clear</button>
+        </div>
+      </form>
+      <div id="incomeResult" class="result card" aria-live="polite"></div>
+    </section>
+
+    <!-- SSCL TAX -->
+    <section id="sscl" class="panel">
+      <h2>SSCL Tax</h2>
+      <form id="ssclForm" class="form card" novalidate>
+        <div class="form-row">
+          <label for="ssclValue">Value (Rs.)</label>
+          <input id="ssclValue" type="number" min="0" step="0.01" placeholder="e.g., 100000" required/>
+          <div class="error" id="ssclValueError"></div>
+        </div>
+        <div class="actions">
+          <button type="submit" class="btn primary">Calculate</button>
+          <button type="button" class="btn" data-action="clear">Clear</button>
+        </div>
+      </form>
+      <div id="ssclResult" class="result card" aria-live="polite"></div>
+    </section>
+
+    <!-- LEASING -->
+    <section id="leasing" class="panel">
+      <h2>Leasing Calculations</h2>
+      <form id="leasingForm" class="form card" novalidate>
+        <fieldset class="grid-2">
+          <div class="form-row">
+            <label for="loanAmount">Loan Amount (Rs.)</label>
+            <input id="loanAmount" type="number" min="0" step="0.01" placeholder="e.g., 1500000" required/>
+            <div class="error" id="loanAmountError"></div>
+          </div>
+          <div class="form-row">
+            <label for="annualRate">Annual Interest Rate (%)</label>
+            <input id="annualRate" type="number" min="0.0001" step="0.0001" placeholder="e.g., 18" required/>
+            <div class="error" id="annualRateError"></div>
+          </div>
+          <div class="form-row">
+            <label for="years">Years (≤ 5)</label>
+            <input id="years" type="number" min="1" max="5" step="1" placeholder="e.g., 4" required/>
+            <div class="error" id="yearsError"></div>
+          </div>
+        </fieldset>
+        <div class="actions">
+          <button type="submit" class="btn primary">Calculate EMI</button>
+          <button type="button" class="btn" id="comparePlans">Compare 3 / 4 / 5 Years</button>
+          <button type="button" class="btn" data-action="clear">Clear</button>
+        </div>
+      </form>
+
+      <form id="reverseForm" class="form card" novalidate>
+        <h3>Reverse Calculation</h3>
+        <fieldset class="grid-2">
+          <div class="form-row">
+            <label for="monthlyPay">Monthly Payment (Rs.)</label>
+            <input id="monthlyPay" type="number" min="0" step="0.01" placeholder="e.g., 45000" required/>
+            <div class="error" id="monthlyPayError"></div>
+          </div>
+          <div class="form-row">
+            <label for="revAnnualRate">Annual Interest Rate (%)</label>
+            <input id="revAnnualRate" type="number" min="0.0001" step="0.0001" placeholder="e.g., 18" required/>
+            <div class="error" id="revAnnualRateError"></div>
+          </div>
+          <div class="form-row">
+            <label for="revYears">Years (≤ 5)</label>
+            <input id="revYears" type="number" min="1" max="5" step="1" placeholder="e.g., 5" required/>
+            <div class="error" id="revYearsError"></div>
+          </div>
+        </fieldset>
+        <div class="actions">
+          <button type="submit" class="btn primary">Calculate Max Loan</button>
+          <button type="button" class="btn" data-action="clear">Clear</button>
+        </div>
+      </form>
+
+      <div id="leasingResult" class="result card" aria-live="polite"></div>
+      <div id="planResult" class="result card" aria-live="polite"></div>
+      <div id="reverseResult" class="result card" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>© <span id="year"></span> Tax & Leasing Calculator • Assignment-ready</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
