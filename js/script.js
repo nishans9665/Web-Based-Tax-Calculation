@@ -308,7 +308,7 @@ document.getElementById('reverseForm').addEventListener('submit', (e) => {
   const resultEl = document.getElementById('reverseResult');
 
   if (M === null || rA === null || years === null) { resultEl.innerHTML = ''; return; }
-  if (years > 5) { document.getElementById('revYearsError').textContent = 'Years must be ≤ 5.'; resultEl.innerHTML = ''; return; }
+  if (years > 5) { document.getElementById('revYearsError').textContent = 'Years must be ≤ 5.'; resultEl.innerHTML = ''; return; } 
 
   const i = toMonthlyRate(rA);
   const n = years * 12;

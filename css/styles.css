@@ -71,7 +71,7 @@ input:focus, select:focus { border-color: var(--accent-2); }
 
 .actions { display: flex; gap: .6rem; flex-wrap: wrap; }
 .btn {
-  border: 1px solid var(--border);
+  border: 1px solid var(--border); 
   background: #101827;
   padding: .6rem .9rem; border-radius: .6rem; color: var(--text);
   cursor: pointer;
@@ -93,4 +93,4 @@ input:focus, select:focus { border-color: var(--accent-2); }
 
 .app-footer { text-align: center; color: var(--muted); padding: 2rem 1rem; }
 
-.kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: #0b1220; border: 1px solid var(--border); padding: .15rem .35rem; border-radius: .4rem; }
+.kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: #0b1220; border: 1px solid var(--border); padding: .15rem .36rem; border-radius: .4rem; }
